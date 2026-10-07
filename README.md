@@ -36,7 +36,7 @@ USD per 1M tokens, checked 2026-10-07.
 | OpenRouter, DeepInfra | $0.5625 | $0.125 | $2.50 | fp4 |
 | OpenRouter, all 41 listed routes | $0.063–$2.80 | | $1.32–$8.80 | |
 
-ArgoLink is 20% under Z.ai's list price and under the full-price routes. OpenRouter also lists cheaper routes, most of them quantized (fp8/fp4). Compare max output and quantization as well as price. The other GLM-5 models, ArgoLink against Z.ai:
+That is 20% under Z.ai's list price and under the full-price routes. OpenRouter also lists cheaper routes, most of them quantized (fp8/fp4). Compare max output and quantization as well as price. The other GLM-5 models, ArgoLink against Z.ai:
 
 | Model | ArgoLink in / cached / out | Z.ai in / cached / out |
 |---|---:|---:|
@@ -45,7 +45,7 @@ ArgoLink is 20% under Z.ai's list price and under the full-price routes. OpenRou
 | GLM-5.2 | $1.12 / $0.208 / $3.52 | $1.40 / $0.26 / $4.40 |
 | GLM-5.1 | $1.12 / $0.208 / $3.52 | $1.40 / $0.26 / $4.40 |
 
-What typical calls cost on ArgoLink:
+What typical calls cost at the first row's rates:
 
 | Call | GLM-5.3 | GLM-5.3 Flash | GLM-5.3 FlashX |
 |---|---:|---:|---:|
@@ -103,8 +103,8 @@ More in [examples/](examples): [curl.sh](examples/curl.sh) (Chat, streaming, Ant
 
 Two things catch people out:
 
-- **`thinking.type: "disabled"` is a Z.ai control.** On ArgoLink it has no effect on GLM-5.2 and 5.1; send `reasoning_effort: "none"` instead. For GLM-5.3, Z.ai's migration notice says a request with `thinking.type: "disabled"` fails; change it to `reasoning_effort: "low"` before switching model IDs.
-- **Effort set on another format may not land.** ArgoLink documents these controls on Chat Completions. Over `/v1/messages` (Claude Code), effort comes from `output_config.effort`, and the gateway sends `medium` when it is missing, which GLM-5.3 runs as `high`.
+- **`thinking.type: "disabled"` is a Z.ai control.** Through `argolink.io` it has no effect on GLM-5.2 and 5.1; send `reasoning_effort: "none"` instead. For GLM-5.3, Z.ai's migration notice says a request with `thinking.type: "disabled"` fails; change it to `reasoning_effort: "low"` before switching model IDs.
+- **Effort set on another format may not land.** These controls are documented on Chat Completions. Over `/v1/messages` (Claude Code), effort comes from `output_config.effort`, and the gateway sends `medium` when it is missing, which GLM-5.3 runs as `high`.
 
 ## Endpoints and formats
 
@@ -114,7 +114,7 @@ Two things catch people out:
 | OpenAI Responses | `https://argolink.io/v1/responses`, converted | base URL `https://api.z.ai/api/v1` |
 | Anthropic Messages | `https://argolink.io/v1/messages`, converted; SDK base URL `https://argolink.io` | base URL `https://api.z.ai/api/anthropic` |
 
-Web search and other server-side tools are dropped when ArgoLink converts Responses or Messages requests. Images on Flash and FlashX go in as `image_url` parts on Chat Completions; over Messages only base64 images carry over.
+Web search and other server-side tools are dropped in the Responses and Messages conversions. Images on Flash and FlashX go in as `image_url` parts on Chat Completions; over Messages only base64 images carry over.
 
 ## Using GLM-5.3 in coding agents
 
@@ -149,7 +149,7 @@ Z.ai also reports a 50% gain over GLM-5.2 on its in-house Z.ai Code Bench, with 
 ## FAQ
 
 **What is the GLM-5.3 model ID?**
-`glm-5.3`, on ArgoLink and on Z.ai. The siblings are `glm-5.3-flash`, `glm-5.3-flashx`, `glm-5.2` and `glm-5.1`.
+`glm-5.3`, the same on both hosts above. The siblings are `glm-5.3-flash`, `glm-5.3-flashx`, `glm-5.2` and `glm-5.1`.
 
 **How much does GLM-5.3 cost per million tokens?**
 $1.12 input, $0.208 cached input and $3.52 output on ArgoLink; $1.40, $0.26 and $4.40 at Z.ai. Reasoning tokens are output tokens, so `max` effort costs more per answer than `low`.
